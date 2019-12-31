@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xuecheng.manage_course.dao.CategoryMapper">
+    <resultMap id="categoryMap" type="com.xuecheng.framework.domain.course.ext.CategoryNode">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="label" property="label"/>
+        <result column="orderby" property="orderby"/>
+        <result column="isleaf" property="isleaf"/>
+        <collection column="id" property="children" ofType="com.xuecheng.framework.domain.course.ext.CategoryNode"
+                    select="findChildren"/>
+    </resultMap>
+
+    <select id="findChildren" resultMap="categoryMap" parameterType="string">
+        select * from category where parentid=#{parentid}
+    </select>
+
+    <select id="findCategoryList" resultMap="categoryMap" >
+            SELECT * FROM category WHERE parentid='0' order by category.orderby
+    </select>
+</mapper>

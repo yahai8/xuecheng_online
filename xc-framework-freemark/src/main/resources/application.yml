@@ -1,0 +1,13 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: xc-framework-freemark
+  freemarker:
+    cache: false
+    settings:
+      template_update_delay: 0
+  data:
+    mongodb:
+      uri:  mongodb://localhost:27017/xc_cms
+      database: xc_cms

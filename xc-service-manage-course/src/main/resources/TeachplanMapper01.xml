@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xuecheng.manage_course.dao.TeachplanMapper">
+    <resultMap id="teachplan" type="com.xuecheng.framework.domain.course.ext.TeachplanNode">
+        <id column="id" property="id"/>
+        <result column="pname" property="pname"/>
+        <collection property="children" ofType="com.xuecheng.framework.domain.course.ext.TeachplanNode" column="id"
+                    select="findChildren"/>
+    </resultMap>
+
+    <select id="findChildren" resultMap="teachplan" parameterType="string">
+        select id,pname from teachplan where parentid=#{parentid}
+    </select>
+
+    <select id="findTeachplanList" resultMap="teachplan" parameterType="string">
+        SELECT * FROM teachplan WHERE courseid=#{courseid} AND parentid='0' order by teachplan.orderby
+    </select>
+</mapper>

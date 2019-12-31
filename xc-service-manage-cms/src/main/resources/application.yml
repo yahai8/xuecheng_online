@@ -1,0 +1,25 @@
+server:
+  port: 31001
+spring:
+  application:
+    name: xc-service-manage-cms
+  data:
+    mongodb:
+      uri:  mongodb://localhost:27017/xc_cms
+      database: xc_cms
+  rabbitmq:
+    virtual-host: /
+    port: 5672
+    host: localhost
+    username: guest
+    password: guest
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://eureka01:50101/eureka
+  instance:
+    prefer-ip-address:  true  #将自己的ip地址注册到Eureka服务中
+    ip-address: ${IP_ADDRESS:127.0.0.1}
+    instance-id: ${spring.application.name}:${server.port} #指定实例id
